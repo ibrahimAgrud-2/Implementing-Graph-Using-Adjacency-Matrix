@@ -106,11 +106,11 @@ namespace BinaryTreeImplementation
             public bool NodesHaveConnection(string node1,string node2)
             {
                 int columnIndex=Vertices.IndexOf(node1);
-                int rowIndex=Vertices.IndexOf(node1);
+                int rowIndex=Vertices.IndexOf(node2);
                
                //Eğer listede olmayan bir node verilerise yine false dönsün
                //yoksa indexOf -1 döner ve  out of range hatası alırısz
-                if(columnIndex==-1||rowIndex!=-1)
+                if(columnIndex==-1||rowIndex==-1)
                 {
                     return false;
                 }
@@ -171,8 +171,8 @@ namespace BinaryTreeImplementation
           //  graph3.DisplayMatix("Matrix Example 3 (wieghted undirected Graph)");
 
 
-            //System.Console.WriteLine(graph3.NodesHaveConnection("A","B"));
-System.Console.WriteLine(graph3.getIndex());
+            
+            System.Console.WriteLine("A and B has Connection: "+graph3.NodesHaveConnection("A","B"));
 
         }
     }
