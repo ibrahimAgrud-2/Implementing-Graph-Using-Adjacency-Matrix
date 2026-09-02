@@ -66,11 +66,12 @@ namespace BinaryTreeImplementation
             public int GetOutdegree(string node)
             {
                 byte counter=0;
+                 int rowIndex=Vertices.IndexOf(node);
                 if(Vertices.Contains(node))
                 {
                 for (int i = 0; i <Vertices.Count; i++)
                 {
-                    if(adjacencyMatrix[Vertices.IndexOf(node),i]!=0)
+                    if(adjacencyMatrix[rowIndex,i]!=0)
                         {
                             counter++;
                         }
