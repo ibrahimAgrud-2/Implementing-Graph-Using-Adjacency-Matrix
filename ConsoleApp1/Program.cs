@@ -85,12 +85,13 @@ namespace BinaryTreeImplementation
 
              public int GetIntdegree(string node)
             {
-                byte counter=0;
+                int counter=0;
+                int ColumnIndex=Vertices.IndexOf(node);
                 if(Vertices.Contains(node))
                 {
                 for (int i = 0; i <Vertices.Count; i++)
                 {
-                    if(adjacencyMatrix[i,Vertices.IndexOf(node)]!=0)
+                    if(adjacencyMatrix[i,ColumnIndex]!=0)
                         {
                             counter++;
                         }
