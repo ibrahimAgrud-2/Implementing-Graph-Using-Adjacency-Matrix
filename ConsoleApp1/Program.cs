@@ -117,6 +117,20 @@ namespace BinaryTreeImplementation
                 return adjacencyMatrix[columnIndex,rowIndex]!=0;
             }
 
+
+            public void RemoveEdge(string node1,string node2)
+            {
+                int columnIndex=Vertices.IndexOf(node1);
+                int rowIndex=Vertices.IndexOf(node2);
+               
+               //Eğer listede olmayan bir node verilerise yine false dönsün
+               //yoksa indexOf -1 döner ve  out of range hatası alırısz
+                if(columnIndex==-1||rowIndex==-1)
+                {
+                    return ;
+                }
+                 adjacencyMatrix[columnIndex,rowIndex]=0;
+            }
         }
 
 
@@ -159,7 +173,7 @@ namespace BinaryTreeImplementation
          
             System.Console.WriteLine("-------------------------------------");
             //example2
-         Graph graph3=new Graph(vertices,Graph.GraphDirectionType.eUndirected);
+         Graph graph3=new Graph(vertices,Graph.GraphDirectionType.enDirected);
             
             graph3.AddEdge("A","B",5);
             graph3.AddEdge("A","C",3);
@@ -168,10 +182,11 @@ namespace BinaryTreeImplementation
             graph3.AddEdge("B","E",2);
             graph3.AddEdge("D","E",7);
 
-          //  graph3.DisplayMatix("Matrix Example 3 (wieghted undirected Graph)");
+            graph3.DisplayMatix("Matrix Example 3 (wieghted directed Graph)");
 
 
             
+            System.Console.WriteLine("C and A has Connection: "+graph3.NodesHaveConnection("C","A"));
             System.Console.WriteLine("A and B has Connection: "+graph3.NodesHaveConnection("A","B"));
 
         }
