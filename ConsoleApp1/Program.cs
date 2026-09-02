@@ -22,6 +22,7 @@ namespace BinaryTreeImplementation
                 //eleman sayısı kadar dizi oluştur. Mesela 3 elemanlı ise 3x3 array
                 adjacencyMatrix=new int[vertices.Count,vertices.Count];
                 this.Vertices=vertices;
+                this.enGraphDirectionType=enGraphDirectionType;
             }
 
             public void AddEdge(string node1,string node2,int connectionValue)
@@ -47,6 +48,7 @@ namespace BinaryTreeImplementation
             public void DisplayMatix(string title)
             {
            
+                System.Console.WriteLine(title);
                for (int i = 0; i < adjacencyMatrix.GetLength(0); i++)
                 {
                    
@@ -58,6 +60,18 @@ namespace BinaryTreeImplementation
                 }
             }
 
+            public int GetIndegree(string node)
+            {
+                byte counter=0;
+                if(Vertices.Contains(node))
+                {
+                    for (int i = 0; i < ; i++)
+                {
+                    
+                }
+                }
+                
+            }
 
         }
 
@@ -67,19 +81,40 @@ namespace BinaryTreeImplementation
 
 
             List<string>vertices=new List<string>(){"A","B","C","D","E"};
-
-            Graph graph=new Graph(vertices,Graph.GraphDirectionType.eUndirected);
             
-            graph.AddEdge("A","B",1);
-            graph.AddEdge("A","C",1);
-            graph.AddEdge("B","D",1);
-            graph.AddEdge("C","D",1);
-            graph.AddEdge("B","E",1);
-            graph.AddEdge("D","E",1);
+            
+            //example1
+            Graph graph1=new Graph(vertices,Graph.GraphDirectionType.eUndirected);
+            
+            graph1.AddEdge("A","B",1);
+            graph1.AddEdge("A","C",1);
+            graph1.AddEdge("B","D",1);
+            graph1.AddEdge("C","D",1);
+            graph1.AddEdge("B","E",1);
+            graph1.AddEdge("D","E",1);
 
-
-            graph.DisplayMatix("Matrix Example 1 (Undirected Graph)");
+            //graph1.DisplayMatix("Matrix Example 1 (Undirected Graph)");
          
+
+
+            System.Console.WriteLine("-------------------------------------");
+            //example2
+         Graph graph2=new Graph(vertices,Graph.GraphDirectionType.enDirected);
+            
+            graph2.AddEdge("A","A",1);
+            graph2.AddEdge("A","B",1);
+            graph2.AddEdge("A","C",1);
+            graph2.AddEdge("B","E",1);
+            graph2.AddEdge("D","B",1);
+            graph2.AddEdge("D","C",1);
+            graph2.AddEdge("D","E",1);
+
+            graph2.DisplayMatix("Matrix Example 2 (directed Graph)");
+
+
+  
+         
+
 
         }
     }
