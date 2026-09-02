@@ -17,28 +17,39 @@ namespace BinaryTreeImplementation
 
             int[,] adjacencyMatrix;
             List<string> Vertices;
+
+            //şimdi normalde hocanın koduna bakmadan dictionary kullanmamıştım. İndexOF ile node'un index'İn ialmıştım
+            //Ama hoca dictionary kullanarak bir node'un index'ini anında buldu n(O) ama ben indexOf kullandım ve bu
+            //her elemanı tek tek baktığı için maaliyeti o(n) oldu. Normalde dictionary nodesIndex[node1] kullandpığım her 
+            //yerde Vertices.IndexOf(node2) kullanıyordum ve bu çok maliyetli
+            Dictionary<string,int>nodesIndex;
             public Graph(List<string> vertices,GraphDirectionType enGraphDirectionType)
             {
                 //eleman sayısı kadar dizi oluştur. Mesela 3 elemanlı ise 3x3 array
                 adjacencyMatrix=new int[vertices.Count,vertices.Count];
                 this.Vertices=vertices;
                 this.enGraphDirectionType=enGraphDirectionType;
+
+                nodesIndex=new Dictionary<string, int>();
+
+                for (int i = 0; i < vertices.Count; i++)
+                {
+                    nodesIndex[vertices[i]]=i;
+                    //şöyle bir şey oluyor. nodesIndex[A]=2 gibi. Yani key value birleştirmesi yapıyor.
+                }
             }
 
             public void AddEdge(string node1,string node2,int connectionValue)
             {
 
                 
-                if(Vertices.Contains(node1)&&Vertices.Contains(node2))
+                if(nodesIndex.ContainsKey(node1)&&nodesIndex.ContainsKey(node2))
                 {
-                    if(enGraphDirectionType==GraphDirectionType.enDirected)
+                     adjacencyMatrix[nodesIndex[node1],nodesIndex[node2]]=connectionValue;
+                   
+                     if(enGraphDirectionType==GraphDirectionType.eUndirected)
                     {
-                         adjacencyMatrix[Vertices.IndexOf(node1),Vertices.IndexOf(node2)]=connectionValue;
-                    }
-                    else
-                    {
-                         adjacencyMatrix[Vertices.IndexOf(node1),Vertices.IndexOf(node2)]=connectionValue;
-                         adjacencyMatrix[Vertices.IndexOf(node2),Vertices.IndexOf(node1)]=connectionValue;
+                          adjacencyMatrix[nodesIndex[node2],nodesIndex[node1]]=connectionValue;
                     }
                 }
             } 
@@ -66,8 +77,8 @@ namespace BinaryTreeImplementation
             public int GetOutdegree(string node)
             {
                 byte counter=0;
-                 int rowIndex=Vertices.IndexOf(node);
-                if(Vertices.Contains(node))
+                 int rowIndex=nodesIndex[node];
+                if(nodesIndex.ContainsKey(node))
                 {
                 for (int i = 0; i <Vertices.Count; i++)
                 {
@@ -87,7 +98,7 @@ namespace BinaryTreeImplementation
              public int GetIntdegree(string node)
             {
                 int counter=0;
-                int ColumnIndex=Vertices.IndexOf(node);
+                int ColumnIndex=nodesIndex[node];
                 if(Vertices.Contains(node))
                 {
                 for (int i = 0; i <Vertices.Count; i++)
@@ -105,31 +116,30 @@ namespace BinaryTreeImplementation
 
             public bool NodesHaveConnection(string node1,string node2)
             {
-                int columnIndex=Vertices.IndexOf(node1);
-                int rowIndex=Vertices.IndexOf(node2);
-               
-               //Eğer listede olmayan bir node verilerise yine false dönsün
-               //yoksa indexOf -1 döner ve  out of range hatası alırısz
-                if(columnIndex==-1||rowIndex==-1)
+
+                    //Eğer node dictionarty'de yoksa exception fırlatmasın
+                            if(!nodesIndex.TryGetValue(node1, out int columnIndex) || 
+                !nodesIndex.TryGetValue(node2, out int rowIndex))
                 {
                     return false;
                 }
-                return adjacencyMatrix[columnIndex,rowIndex]!=0;
+                return adjacencyMatrix[columnIndex, rowIndex] > 0;
             }
 
 
             public void RemoveEdge(string node1,string node2)
             {
-                int columnIndex=Vertices.IndexOf(node1);
-                int rowIndex=Vertices.IndexOf(node2);
-               
-               //Eğer listede olmayan bir node verilerise yine false dönsün
-               //yoksa indexOf -1 döner ve  out of range hatası alırısz
-                if(columnIndex==-1||rowIndex==-1)
+                   //Eğer node dictionarty'de yoksa exception fırlatmasın
+                if(!nodesIndex.TryGetValue(node1, out int columnIndex) || 
+                !nodesIndex.TryGetValue(node2, out int rowIndex))
                 {
-                    return ;
+                    return;
                 }
+                //eğer matrix undirected olursa hem row hem de kolonu sıfırlaman gekekri. 
+                //Mesela Add("A","B",1) olduğunda bunu hem AB hem de BA ikilisi ekleniyor. 
+                //Bu yüzden bu şekikde silme yapılmalı. 
                  adjacencyMatrix[columnIndex,rowIndex]=0;
+                 adjacencyMatrix[rowIndex,columnIndex]=0;
             }
         }
 
@@ -186,8 +196,13 @@ namespace BinaryTreeImplementation
 
 
             
-            System.Console.WriteLine("C and A has Connection: "+graph3.NodesHaveConnection("C","A"));
-            System.Console.WriteLine("A and B has Connection: "+graph3.NodesHaveConnection("A","B"));
+            // System.Console.WriteLine("C and A has Connection: "+graph3.NodesHaveConnection("C","A"));
+            // System.Console.WriteLine("A and B has Connection: "+graph3.NodesHaveConnection("A","B"));
+
+
+            graph3.RemoveEdge("A","B");
+            System.Console.WriteLine("After remove");
+           graph3.DisplayMatix("Matrix Example 3 (wieghted directed Graph)");
 
         }
     }
