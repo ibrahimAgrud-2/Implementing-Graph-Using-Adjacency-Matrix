@@ -13,6 +13,7 @@ namespace BinaryTreeImplementation
         {Console.Clear();
 
             System.Console.WriteLine("");
+            System.Console.WriteLine("");
  
         }
     }
