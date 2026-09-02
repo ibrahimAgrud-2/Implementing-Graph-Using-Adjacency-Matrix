@@ -68,7 +68,7 @@ namespace BinaryTreeImplementation
 
             List<string>vertices=new List<string>(){"A","B","C","D","E"};
 
-            Graph graph=new Graph(vertices,Graph.GraphDirectionType.enDirected);
+            Graph graph=new Graph(vertices,Graph.GraphDirectionType.eUndirected);
             
             graph.AddEdge("A","B",1);
             graph.AddEdge("A","C",1);
@@ -78,7 +78,7 @@ namespace BinaryTreeImplementation
             graph.AddEdge("D","E",1);
 
 
-            graph.DisplayMatix();
+            graph.DisplayMatix("Matrix Example 1 (Undirected Graph)");
          
 
         }
