@@ -59,16 +59,30 @@ namespace BinaryTreeImplementation
             public void DisplayMatix(string title)
             {
            
-                System.Console.WriteLine(title);
-               for (int i = 0; i < adjacencyMatrix.GetLength(0); i++)
+                 Console.WriteLine("\n"+ title +"\n");
+
+            // Print the header row (vertex labels)
+            Console.Write("  ");
+            foreach (var vertex in nodesIndex.Keys)
+            {
+                Console.Write(vertex + " ");
+            }
+            Console.WriteLine();
+
+            // Loop through the rows (vertices)
+            foreach (var source in nodesIndex)
+            {
+                // Print the row label (vertex name)
+                Console.Write(source.Key + " ");
+
+                // Loop through the columns (vertices)
+                for (int j = 0; j < Vertices.Count; j++)
                 {
-                   
-                    for (int k = 0; k < adjacencyMatrix.GetLength(1); k++)
-                    {
-                        System.Console.Write(adjacencyMatrix[i,k]+"  ");
-                    }
-                    System.Console.WriteLine();
+                    // Print the value at _adjacencyMatrix[source.Value, j]
+                    Console.Write(adjacencyMatrix[source.Value, j] + " ");
                 }
+                Console.WriteLine();
+            }
             }
 
 
