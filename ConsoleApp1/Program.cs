@@ -60,16 +60,36 @@ namespace BinaryTreeImplementation
                 }
             }
 
-            public int GetIndegree(string node)
+            public int GetOutdegree(string node)
             {
                 byte counter=0;
                 if(Vertices.Contains(node))
                 {
-                    for (int i = 0; i < ; i++)
+                for (int i = 0; i <Vertices.Count; i++)
                 {
-                    
+                    if(adjacencyMatrix[Vertices.IndexOf(node),i]!=0)
+                        {
+                            counter++;
+                        }
                 }
                 }
+                return counter;
+                
+            }
+             public int GetIntdegree(string node)
+            {
+                byte counter=0;
+                if(Vertices.Contains(node))
+                {
+                for (int i = 0; i <Vertices.Count; i++)
+                {
+                    if(adjacencyMatrix[i,Vertices.IndexOf(node)]!=0)
+                        {
+                            counter++;
+                        }
+                }
+                }
+                return counter;
                 
             }
 
@@ -96,7 +116,6 @@ namespace BinaryTreeImplementation
             //graph1.DisplayMatix("Matrix Example 1 (Undirected Graph)");
          
 
-
             System.Console.WriteLine("-------------------------------------");
             //example2
          Graph graph2=new Graph(vertices,Graph.GraphDirectionType.enDirected);
@@ -111,8 +130,8 @@ namespace BinaryTreeImplementation
 
             graph2.DisplayMatix("Matrix Example 2 (directed Graph)");
 
-
-  
+            System.Console.WriteLine("in Degree For Node D is: "+graph2.GetIntdegree("D"));
+            System.Console.WriteLine("Out Degree For Node D is: "+graph2.GetOutdegree("D"));
          
 
 
