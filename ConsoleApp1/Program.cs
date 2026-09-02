@@ -60,6 +60,9 @@ namespace BinaryTreeImplementation
                 }
             }
 
+
+            //Bir Node'un Outdegree'si almak için matriste o node'un bulunduğu satıra bakarak bulabilrisn. 
+            //Sıfır dışındaki tüm değerler +1 olarak hesaplanır. Yani 0 kenar yok demek
             public int GetOutdegree(string node)
             {
                 byte counter=0;
@@ -76,6 +79,10 @@ namespace BinaryTreeImplementation
                 return counter;
                 
             }
+
+            //Bir Node'un İndegree'si almak için matriste o node'un bulunduğu kolona bakarak bulabilrisn. 
+            //Sıfır dışındaki tüm değerler +1 olarak hesaplanır. Yani 0 kenar yok demek
+
              public int GetIntdegree(string node)
             {
                 byte counter=0;
@@ -91,6 +98,21 @@ namespace BinaryTreeImplementation
                 }
                 return counter;
                 
+            }
+
+
+            public bool NodesHaveConnection(string node1,string node2)
+            {
+                int columnIndex=Vertices.IndexOf(node1);
+                int rowIndex=Vertices.IndexOf(node1);
+               
+               //Eğer listede olmayan bir node verilerise yine false dönsün
+               //yoksa indexOf -1 döner ve  out of range hatası alırısz
+                if(columnIndex==-1||rowIndex!=-1)
+                {
+                    return false;
+                }
+                return adjacencyMatrix[columnIndex,rowIndex]!=0;
             }
 
         }
@@ -128,12 +150,27 @@ namespace BinaryTreeImplementation
             graph2.AddEdge("D","C",1);
             graph2.AddEdge("D","E",1);
 
-            graph2.DisplayMatix("Matrix Example 2 (directed Graph)");
+            //graph2.DisplayMatix("Matrix Example 2 (directed Graph)");
 
             System.Console.WriteLine("in Degree For Node D is: "+graph2.GetIntdegree("D"));
             System.Console.WriteLine("Out Degree For Node D is: "+graph2.GetOutdegree("D"));
          
+            System.Console.WriteLine("-------------------------------------");
+            //example2
+         Graph graph3=new Graph(vertices,Graph.GraphDirectionType.eUndirected);
+            
+            graph3.AddEdge("A","B",5);
+            graph3.AddEdge("A","C",3);
+            graph3.AddEdge("B","D",12);
+            graph3.AddEdge("C","D",10);
+            graph3.AddEdge("B","E",2);
+            graph3.AddEdge("D","E",7);
 
+          //  graph3.DisplayMatix("Matrix Example 3 (wieghted undirected Graph)");
+
+
+            //System.Console.WriteLine(graph3.NodesHaveConnection("A","B"));
+System.Console.WriteLine(graph3.getIndex());
 
         }
     }
